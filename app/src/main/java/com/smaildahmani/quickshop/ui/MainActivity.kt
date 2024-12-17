@@ -11,11 +11,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.smaildahmani.quickshop.LoginActivity
 import com.smaildahmani.quickshop.R
 import com.smaildahmani.quickshop.api.ApiClient
-import com.smaildahmani.quickshop.api.ApiService
-import com.smaildahmani.quickshop.api.RetrofitClient
+import com.smaildahmani.quickshop.api.ApiResponse
 import com.smaildahmani.quickshop.ui.adapter.ProductAdapter
-import com.smaildahmani.quickshop.util.CartManager
 import com.smaildahmani.quickshop.util.handleApiResponse
+import retrofit2.Call
 
 class MainActivity : ComponentActivity() {
 
@@ -57,7 +56,54 @@ class MainActivity : ComponentActivity() {
                             startActivity(Intent(this, LoginActivity::class.java))
                         } else {
                             // Add to Cart
-                            CartManager.addProduct(product, 1)
+                            apiService.addProduct(product.id, 1).enqueue(
+                                object : retrofit2.Callback<ApiResponse<Void>> {
+                                    override fun onResponse(
+                                        call: retrofit2.Call<ApiResponse<Void>>,
+                                        response: retrofit2.Response<ApiResponse<Void>>
+                                    ) {
+                                        if (response.isSuccessful) {
+                                            val body = response.body()
+                                            if (body?.success == true) {
+                                                Toast.makeText(
+                                                    this@MainActivity,
+                                                    "Product added to cart!",
+                                                    Toast.LENGTH_SHORT
+                                                ).show();
+                                            }
+                                            else {
+                                                Toast.makeText(
+                                                    this@MainActivity,
+                                                    "Failed to add product to cart!",
+                                                    Toast.LENGTH_SHORT
+                                                ).show();
+                                                }
+                                        }
+                                        else {
+                                            Toast.makeText(
+                                                this@MainActivity,
+                                                "Error: ${response.code()}",
+                                                Toast.LENGTH_SHORT
+                                                ).show();
+                                        }
+                                    }
+
+                                    override fun onFailure(
+                                        call: Call<ApiResponse<Void>>,
+                                        t: Throwable
+                                    ) {
+
+                                        Toast.makeText(
+                                            this@MainActivity,
+                                            "Error: ${t.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show();
+                                    }
+
+                                }
+
+                            )
+
                             Toast.makeText(this, "${product.name} added to cart!", Toast.LENGTH_SHORT).show()
                         }
                     }

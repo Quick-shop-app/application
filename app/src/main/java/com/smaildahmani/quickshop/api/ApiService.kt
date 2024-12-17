@@ -14,13 +14,16 @@ interface ApiService {
 
     // Register
     @POST("auth/register")
-    fun register(@Body request: RegisterRequest): Call<GenericResponse>
+    fun register(@Body request: RegisterRequest): Call<ApiResponse<Void>>
 
-    @GET("api/cart")
+    @GET("cart")
     fun getCart(@Query("username") username: String): Call<List<CartItem>>
 
     @GET("products")
     fun getProducts(): Call<ApiResponse<List<Product>>>
+
+    @POST("cart/add")
+    fun addProduct(@Query("productId") productId: Long, @Query("quantity") quantity: Int): Call<ApiResponse<Void>>
 }
 
 // Data Models

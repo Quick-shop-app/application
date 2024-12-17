@@ -52,19 +52,20 @@ class RegisterActivity : ComponentActivity() {
             return
         }
 
-//        val request = RegisterRequest(firstName, lastName, email, password, confirmPassword)
-//        val call = RetrofitClient.retrofit.create(ApiService::class.java).getProducts()
-//
-//        handleApiResponse(
-//            call = call,
-//            onSuccess = { response ->
-//                Toast.makeText(this, "Registration Successful! Please login.", Toast.LENGTH_SHORT).show()
-//                startActivity(Intent(this, LoginActivity::class.java))
-//                finish()
-//            },
-//            onError = { errorMessage ->
-//                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-//            }
-//        )
+        val apiService = ApiClient.getApiService(this)
+        val request = RegisterRequest(firstName, lastName, email, password, confirmPassword)
+        val call = apiService.register(request)
+
+        handleApiResponse(
+            call = call,
+            onSuccess = { _ ->
+                Toast.makeText(this, "Registration Successful! Please login.", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            },
+            onError = { errorMessage ->
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 }

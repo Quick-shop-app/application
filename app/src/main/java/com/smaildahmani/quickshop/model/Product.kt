@@ -1,7 +1,7 @@
 package com.smaildahmani.quickshop.model
 
 data class Product(
-    val id: Int,
+    val id: Long,
     val brand: String,
     val category: String,
     val description: String?,
