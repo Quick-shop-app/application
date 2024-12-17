@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">QuickShop</string>
     <string name="product_image">product image</string>
+    <string name="checkout">Checkout</string>
 </resources>
