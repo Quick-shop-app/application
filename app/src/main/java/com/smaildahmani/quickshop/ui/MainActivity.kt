@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadProducts() {
-//        val call = RetrofitClient.retrofit.create(ApiService::class.java).getProducts()
         val apiService = ApiClient.getApiService(this)
         val call = apiService.getProducts()
 

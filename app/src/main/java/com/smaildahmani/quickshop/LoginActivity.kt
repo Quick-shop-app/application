@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.smaildahmani.quickshop.api.ApiClient
 import com.smaildahmani.quickshop.api.LoginRequest
 import com.smaildahmani.quickshop.api.UserResponse
+import com.smaildahmani.quickshop.ui.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +25,11 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        if(isUserLoggedIn()){
+            startActivity(Intent(this, MainActivity::class.java));
+            finish();
+        }
 
         // Initialize UI components
         etEmail = findViewById(R.id.etEmail)
@@ -96,5 +102,12 @@ class LoginActivity : AppCompatActivity() {
             putString("PASSWORD", password)
             apply()
         }
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val email = sharedPref.getString("EMAIL", null)
+        val password = sharedPref.getString("PASSWORD", null)
+        return email != null && password != null
     }
 }

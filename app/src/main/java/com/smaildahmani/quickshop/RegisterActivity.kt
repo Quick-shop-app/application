@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import com.smaildahmani.quickshop.api.ApiClient
 import com.smaildahmani.quickshop.api.ApiResponse
 import com.smaildahmani.quickshop.api.RegisterRequest
+import com.smaildahmani.quickshop.ui.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,6 +41,11 @@ class RegisterActivity : ComponentActivity() {
 
         btnRegister.setOnClickListener {
             registerUser()
+        }
+
+        if(isUserLoggedIn()){
+            startActivity(Intent(this, MainActivity::class.java));
+            finish();
         }
     }
 
@@ -81,5 +87,12 @@ class RegisterActivity : ComponentActivity() {
             }
 
         })
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val email = sharedPref.getString("EMAIL", null)
+        val password = sharedPref.getString("PASSWORD", null)
+        return email != null && password != null
     }
 }

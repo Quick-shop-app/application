@@ -1,8 +1,8 @@
 package com.smaildahmani.quickshop.model
 
 data class CartItem(
-    val id: Int,
+    val id: Long,
     val product: Product,
-    var quantity: Int,
+    var quantity: Long,
     var totalPrice: Double
 )

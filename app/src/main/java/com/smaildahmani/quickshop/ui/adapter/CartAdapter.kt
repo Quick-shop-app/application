@@ -32,7 +32,7 @@ class CartAdapter(
         holder.name.text = cartItem.product.name
         holder.price.text = "$${cartItem.product.price}"
         holder.quantity.text = "Qty: ${cartItem.quantity}"
-//        holder.removeButton.setOnClickListener { onRemoveClicked(cartItem.product.id) }
+        holder.removeButton.setOnClickListener { onRemoveClicked(cartItem.product.id.toInt()) }
     }
 
     override fun getItemCount(): Int = cartItems.size
