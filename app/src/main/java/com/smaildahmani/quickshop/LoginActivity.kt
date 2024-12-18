@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.smaildahmani.quickshop.api.ApiClient
 import com.smaildahmani.quickshop.api.LoginRequest
 import com.smaildahmani.quickshop.api.UserResponse
-import com.smaildahmani.quickshop.ui.MainActivity
-import com.smaildahmani.quickshop.ui.RegisterActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

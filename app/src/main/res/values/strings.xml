@@ -2,4 +2,14 @@
     <string name="app_name">QuickShop</string>
     <string name="product_image">product image</string>
     <string name="checkout">Checkout</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="register">Register</string>
+    <string name="address">Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>

@@ -68,5 +68,6 @@ dependencies {
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
     implementation(libs.androidx.security.crypto)
+    implementation(libs.material)
 
 }

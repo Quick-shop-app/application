@@ -29,5 +29,5 @@ interface ApiService {
 // Data Models
 data class LoginRequest(val email: String, val password: String)
 data class UserResponse(val data: User, val success: Boolean)
-data class RegisterRequest(val firstName: String, val lastName: String, val email: String, val password: String, val confirmPassword: String)
+data class RegisterRequest(val firstName: String, val lastName: String, val email: String, val password: String, val confirmPassword: String, val phone: String, val address: String)
 data class GenericResponse(val success: Boolean, val message: String)

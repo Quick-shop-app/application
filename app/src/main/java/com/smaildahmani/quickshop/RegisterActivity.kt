@@ -1,4 +1,4 @@
-package com.smaildahmani.quickshop.ui
+package com.smaildahmani.quickshop
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,18 +6,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.smaildahmani.quickshop.LoginActivity
-import com.smaildahmani.quickshop.R
 import com.smaildahmani.quickshop.api.ApiClient
-import com.smaildahmani.quickshop.api.ApiService
+import com.smaildahmani.quickshop.api.ApiResponse
 import com.smaildahmani.quickshop.api.RegisterRequest
-import com.smaildahmani.quickshop.api.RetrofitClient
-import com.smaildahmani.quickshop.util.handleApiResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterActivity : ComponentActivity() {
 
     private lateinit var etFirstName: EditText
     private lateinit var etLastName: EditText
+    private lateinit var etPhone: EditText
+    private lateinit var etAddress: EditText
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var etConfirmPassword: EditText
@@ -34,6 +35,8 @@ class RegisterActivity : ComponentActivity() {
         etPassword = findViewById(R.id.etPassword)
         etConfirmPassword = findViewById(R.id.etConfirmPassword)
         btnRegister = findViewById(R.id.btnRegister)
+        etPhone = findViewById(R.id.etPhone)
+        etAddress = findViewById(R.id.etAddress)
 
         btnRegister.setOnClickListener {
             registerUser()
@@ -44,6 +47,8 @@ class RegisterActivity : ComponentActivity() {
         val firstName = etFirstName.text.toString()
         val lastName = etLastName.text.toString()
         val email = etEmail.text.toString()
+        val phone = etPhone.text.toString()
+        val address = etAddress.text.toString()
         val password = etPassword.text.toString()
         val confirmPassword = etConfirmPassword.text.toString()
 
@@ -53,19 +58,28 @@ class RegisterActivity : ComponentActivity() {
         }
 
         val apiService = ApiClient.getApiService(this)
-        val request = RegisterRequest(firstName, lastName, email, password, confirmPassword)
+        val request = RegisterRequest(firstName, lastName, email, password, confirmPassword, phone, address)
         val call = apiService.register(request)
 
-        handleApiResponse(
-            call = call,
-            onSuccess = { _ ->
-                Toast.makeText(this, "Registration Successful! Please login.", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            },
-            onError = { errorMessage ->
-                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        call.enqueue(object : Callback<ApiResponse<Void>> {
+            override fun onResponse(call: Call<ApiResponse<Void>>, response: Response<ApiResponse<Void>>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    if (apiResponse?.success == true) {
+                        Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
+                        // Redirect to LoginActivity
+                        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this@RegisterActivity, "Registration failed: ${apiResponse?.error}", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
-        )
+
+            override fun onFailure(call: Call<ApiResponse<Void>>, t: Throwable) {
+                Toast.makeText(this@RegisterActivity, "Registration failed: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 }
