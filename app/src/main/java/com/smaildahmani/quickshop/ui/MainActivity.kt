@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.smaildahmani.quickshop.AccountActivity
 import com.smaildahmani.quickshop.LoginActivity
 import com.smaildahmani.quickshop.MapsActivity
 import com.smaildahmani.quickshop.R
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.account -> {
-                    startActivity(Intent(this, MapsActivity::class.java), options.toBundle())
+                    startActivity(Intent(this, AccountActivity::class.java), options.toBundle())
                     true
                 }
 

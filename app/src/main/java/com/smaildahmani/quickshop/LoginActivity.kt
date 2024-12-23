@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.smaildahmani.quickshop.api.ApiClient
 import com.smaildahmani.quickshop.api.LoginRequest
 import com.smaildahmani.quickshop.api.UserResponse
+import com.smaildahmani.quickshop.model.User
 import com.smaildahmani.quickshop.ui.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,8 +66,9 @@ class LoginActivity : AppCompatActivity() {
         call.enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful && response.body()?.success == true) {
-                    val user = response.body()?.data
-                    saveCredentials(email, password)
+                    val user =  response.body()?.data
+                    System.out.println(user)
+                    saveCredentials(email, password, user!!)
                     Toast.makeText(
                         this@LoginActivity,
                         "Welcome, ${user?.firstName}!",
@@ -74,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
 
                     // Redirect to MainActivity
-//                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 } else {
                     Toast.makeText(
@@ -95,14 +97,19 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun saveCredentials(email: String, password: String) {
+    private fun saveCredentials(email: String, password: String, user: User) {
         val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
         with(sharedPref.edit()) {
             putString("EMAIL", email)
             putString("PASSWORD", password)
+            putString("firstName", user.firstName)
+            putString("lastName", user.lastName)
+            putString("phone", user.phone)
+            putString("address", user.address)
             apply()
         }
     }
+
 
     private fun isUserLoggedIn(): Boolean {
         val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)

@@ -22,4 +22,6 @@
     <string name="maps">Map</string>
     <string name="open_map">Open Map</string>
     <string name="get_directions">Get Directions</string>
+    <string name="logout">Logout</string>
+    <string name="full_name">Full name</string>
 </resources>
