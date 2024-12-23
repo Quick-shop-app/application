@@ -22,4 +22,22 @@
     <string name="maps">Map</string>
     <string name="open_map">Open Map</string>
     <string name="get_directions">Get Directions</string>
+    <string name="logout">Logout</string>
+    <string name="full_name">Full name</string>
+    <string name="manage_products">Manage Products</string>
+    <string name="create_product">Create product</string>
+    <string name="product_data">Product data</string>
+    <string name="product_name">Product Name</string>
+    <string name="brand">Brand</string>
+    <string name="category">Category</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="select_image">Select Image</string>
+    <string name="submit_product">Submit Product</string>
+    <string name="edit_product">Edit product</string>
+    <string name="current_image">Current image</string>
+    <string name="current_product_image">current product</string>
+    <string name="select_new_image">Select new image</string>
+    <string name="new_product_image">New product image</string>
+    <string name="update_product">Update product</string>
 </resources>

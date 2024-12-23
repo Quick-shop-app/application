@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.smaildahmani.quickshop.LoginActivity
 import com.smaildahmani.quickshop.MapsActivity
 import com.smaildahmani.quickshop.R
 import com.smaildahmani.quickshop.api.ApiClient
@@ -52,6 +51,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, MapsActivity::class.java))
         }
 
+        // Hide admin-only option for normal users
+        if (!isAdmin()) {
+            val menu = bottomNavigationView.menu
+            menu.removeItem(R.id.navigation_product_management)
+        }
+
         bottomNavigationView.setOnItemSelectedListener { item ->
             val options = ActivityOptions.makeCustomAnimation(
                 this,
@@ -61,7 +66,6 @@ class MainActivity : AppCompatActivity() {
 
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    // Already in CartActivity
                     true
                 }
 
@@ -71,13 +75,25 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.account -> {
-                    startActivity(Intent(this, MapsActivity::class.java), options.toBundle())
+                    startActivity(Intent(this, AccountActivity::class.java), options.toBundle())
+                    true
+                }
+
+                R.id.navigation_product_management -> {
+                    if (isAdmin()) {
+                        val intent = Intent(this, ProductManagementActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this, "Access Denied: Admins Only", Toast.LENGTH_SHORT).show()
+                    }
                     true
                 }
 
                 else -> false
             }
         }
+
+
     }
 
     private fun loadProducts() {
@@ -162,21 +178,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isUserLoggedIn(): Boolean {
-        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
         val email = sharedPref.getString("EMAIL", null)
         val password = sharedPref.getString("PASSWORD", null)
         return email != null && password != null
     }
 
-    private fun logoutUser() {
-        // Clear stored credentials
-        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            clear()
-            apply()
-        }
-        Toast.makeText(this, "Logged out successfully!", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
+    private fun isAdmin(): Boolean {
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
+        return sharedPref.getString("ROLE", "USER") == "ADMIN"
     }
+
 }
