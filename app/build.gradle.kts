@@ -68,6 +68,7 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.okhttp3.okhttp)
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
     implementation(libs.androidx.security.crypto)
