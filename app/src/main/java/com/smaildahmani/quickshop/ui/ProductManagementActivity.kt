@@ -62,9 +62,9 @@ class ProductManagementActivity : AppCompatActivity() {
                         context = this@ProductManagementActivity,
                         products = productList,
                         onEditClicked = { product ->
-//                            val intent = Intent(this@com.smaildahmani.quickshop.ui.ProductManagementActivity, EditProductActivity::class.java)
-//                            intent.putExtra("PRODUCT_ID", product.id)
-//                            startActivity(intent)
+                            val intent = Intent(this@ProductManagementActivity, EditProductActivity::class.java)
+                            intent.putExtra("PRODUCT_ID", product.id)
+                            startActivity(intent)
                         },
                         onDeleteClicked = { product ->
                             deleteProduct(product, apiService)

@@ -34,6 +34,9 @@ interface ApiService {
     fun finalizeCart(): Call<ApiResponse<Void>>
 
     // admin routes
+    @GET("admin/products/{id}")
+    fun getProductById(@Path("id") productId: Long): Call<Product>
+
     @Multipart
     @POST("admin/products")
     fun createProduct(
@@ -44,6 +47,19 @@ interface ApiService {
         @Part("description") description: RequestBody,
         @Part imageFile: MultipartBody.Part
     ): Call<ApiResponse<Void>>
+
+    @Multipart
+    @PUT("admin/products/{id}")
+    fun editProduct(
+        @Path("id") productId: Long,
+        @Part("name") name: RequestBody,
+        @Part("brand") brand: RequestBody,
+        @Part("category") category: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part imageFile: MultipartBody.Part?
+    ): Call<ApiResponse<Void>>
+
     @DELETE("admin/products/{id}")
     fun deleteProduct(@Path("id") productId: Long): Call<ApiResponse<Void>>
 }
