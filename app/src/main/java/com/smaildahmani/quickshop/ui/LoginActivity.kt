@@ -1,4 +1,4 @@
-package com.smaildahmani.quickshop
+package com.smaildahmani.quickshop.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.smaildahmani.quickshop.R
 import com.smaildahmani.quickshop.api.ApiClient
 import com.smaildahmani.quickshop.api.LoginRequest
 import com.smaildahmani.quickshop.api.UserResponse
 import com.smaildahmani.quickshop.model.User
-import com.smaildahmani.quickshop.ui.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveCredentials(email: String, password: String, user: User) {
-        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
         with(sharedPref.edit()) {
             putString("EMAIL", email)
             putString("PASSWORD", password)
@@ -106,13 +106,14 @@ class LoginActivity : AppCompatActivity() {
             putString("lastName", user.lastName)
             putString("phone", user.phone)
             putString("address", user.address)
+            putString("ROLE", user.role)
             apply()
         }
     }
 
 
     private fun isUserLoggedIn(): Boolean {
-        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
         val email = sharedPref.getString("EMAIL", null)
         val password = sharedPref.getString("PASSWORD", null)
         return email != null && password != null

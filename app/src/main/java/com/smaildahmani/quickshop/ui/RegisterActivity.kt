@@ -1,4 +1,4 @@
-package com.smaildahmani.quickshop
+package com.smaildahmani.quickshop.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import com.smaildahmani.quickshop.R
 import com.smaildahmani.quickshop.api.ApiClient
 import com.smaildahmani.quickshop.api.ApiResponse
 import com.smaildahmani.quickshop.api.RegisterRequest
-import com.smaildahmani.quickshop.ui.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -90,7 +90,7 @@ class RegisterActivity : ComponentActivity() {
     }
 
     private fun isUserLoggedIn(): Boolean {
-        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
         val email = sharedPref.getString("EMAIL", null)
         val password = sharedPref.getString("PASSWORD", null)
         return email != null && password != null

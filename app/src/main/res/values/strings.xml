@@ -24,4 +24,6 @@
     <string name="get_directions">Get Directions</string>
     <string name="logout">Logout</string>
     <string name="full_name">Full name</string>
+    <string name="manage_products">Manage Products</string>
+    <string name="create_product">Create product</string>
 </resources>

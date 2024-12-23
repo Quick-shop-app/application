@@ -15,7 +15,7 @@ object RetrofitClient {
 
     // Function to create Retrofit instance with Basic Auth
     fun getInstance(context: Context): Retrofit {
-        val sharedPref = context.getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+        val sharedPref = context.getSharedPreferences("QuickShop", Context.MODE_PRIVATE)
         val email = sharedPref.getString("EMAIL", null)
         val password = sharedPref.getString("PASSWORD", null)
 

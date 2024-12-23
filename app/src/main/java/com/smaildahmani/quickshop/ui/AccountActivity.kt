@@ -1,5 +1,6 @@
-package com.smaildahmani.quickshop
+package com.smaildahmani.quickshop.ui
 
+import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,13 +11,13 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.smaildahmani.quickshop.ui.CartActivity
-import com.smaildahmani.quickshop.ui.MainActivity
+import com.smaildahmani.quickshop.R
 
 class AccountActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,34 +36,31 @@ class AccountActivity : AppCompatActivity() {
             finish()
         }
 
+        // Hide admin-only option for normal users
+        if (!isAdmin()) {
+            val menu = bottomNavigationView.menu
+            menu.removeItem(R.id.navigation_product_management)
+        }
+
         // Retrieve user data from SharedPreferences
-        val sharedPref: SharedPreferences = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val sharedPref: SharedPreferences = getSharedPreferences("QuickShop", MODE_PRIVATE)
         val firstName = sharedPref.getString("firstName", "N/A")
         val lastName = sharedPref.getString("lastName", "N/A")
         val email = sharedPref.getString("EMAIL", "N/A")
         val phone = sharedPref.getString("phone", "N/A")
         val address = sharedPref.getString("address", "N/A")
+        val isAdmin = sharedPref.getString("ROLE", "USER") == "ADMIN"
+
 
         // Set user info in UI
-        tvUserFullName.text = "$firstName $lastName"
+        tvUserFullName.text = "$firstName $lastName" + if (isAdmin) " (Admin)" else ""
         tvUserEmail.text = email
         tvUserPhone.text = phone
         tvUserAddress.text = address
 
         // Logout button functionality
         btnLogout.setOnClickListener {
-            // Clear user data from SharedPreferences
-            with(sharedPref.edit()) {
-                clear()
-                apply()
-            }
-
-            Toast.makeText(this, "Logged out successfully!", Toast.LENGTH_SHORT).show()
-
-            // Redirect to LoginActivity
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            logoutUser()
         }
 
         bottomNavigationView.setOnItemSelectedListener { item ->
@@ -88,6 +86,16 @@ class AccountActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.navigation_product_management -> {
+                    if (isAdmin()) {
+                        val intent = Intent(this, ProductManagementActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this, "Access Denied: Admins Only", Toast.LENGTH_SHORT).show()
+                    }
+                    true
+                }
+
                 else -> false
             }
         }
@@ -96,9 +104,27 @@ class AccountActivity : AppCompatActivity() {
     }
 
     private fun isUserLoggedIn(): Boolean {
-        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
         val email = sharedPref.getString("EMAIL", null)
         val password = sharedPref.getString("PASSWORD", null)
         return email != null && password != null
+    }
+
+
+    private fun isAdmin(): Boolean {
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
+        return sharedPref.getString("ROLE", "USER") == "ADMIN"
+    }
+
+    private fun logoutUser() {
+        // Clear stored credentials
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            clear()
+            apply()
+        }
+        Toast.makeText(this, "Logged out successfully!", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 }

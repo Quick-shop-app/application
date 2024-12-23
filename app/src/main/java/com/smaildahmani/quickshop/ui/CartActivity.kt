@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.smaildahmani.quickshop.AccountActivity
-import com.smaildahmani.quickshop.LoginActivity
-import com.smaildahmani.quickshop.MapsActivity
 import com.smaildahmani.quickshop.R
 import com.smaildahmani.quickshop.api.ApiClient
 import com.smaildahmani.quickshop.api.ApiResponse
@@ -35,7 +32,6 @@ class CartActivity : AppCompatActivity() {
     private lateinit var totalPriceTextView: TextView
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var emptyCartMessage: TextView
-//    cartTotalLayout
     private lateinit var cartTotalLayout: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +64,12 @@ class CartActivity : AppCompatActivity() {
             finalizeOrder()
         }
 
+        // Hide admin-only option for normal users
+        if (!isAdmin()) {
+            val menu = bottomNavigationView.menu
+            menu.removeItem(R.id.navigation_product_management)
+        }
+
       bottomNavigationView.setOnItemSelectedListener { item ->
           val options = ActivityOptions.makeCustomAnimation(
               this,
@@ -89,6 +91,17 @@ class CartActivity : AppCompatActivity() {
                 startActivity(Intent(this, AccountActivity::class.java), options.toBundle())
                 true
             }
+
+            R.id.navigation_product_management -> {
+                if (isAdmin()) {
+                    val intent = Intent(this, ProductManagementActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Access Denied: Admins Only", Toast.LENGTH_SHORT).show()
+                }
+                true
+            }
+
             else -> false
         }
       }
@@ -208,12 +221,17 @@ class CartActivity : AppCompatActivity() {
 }
 
     private fun isUserLoggedIn(): Boolean {
-        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
         val email = sharedPref.getString("EMAIL", null)
         val password = sharedPref.getString("PASSWORD", null)
         return email != null && password != null
     }
 
+
+    private fun isAdmin(): Boolean {
+        val sharedPref = getSharedPreferences("QuickShop", MODE_PRIVATE)
+        return sharedPref.getString("ROLE", "USER") == "ADMIN"
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

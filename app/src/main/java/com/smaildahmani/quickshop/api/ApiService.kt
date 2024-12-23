@@ -8,19 +8,19 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
-    // Login
+    // Product routes
+    @GET("products")
+    fun getProducts(): Call<ApiResponse<List<Product>>>
+
     @POST("auth/login")
     fun login(@Body request: LoginRequest): Call<UserResponse>
 
-    // Register
     @POST("auth/register")
     fun register(@Body request: RegisterRequest): Call<ApiResponse<Void>>
 
+    // User routes
     @GET("cart")
     fun getCart(): Call<ApiResponse<List<CartItem>>>
-
-    @GET("products")
-    fun getProducts(): Call<ApiResponse<List<Product>>>
 
     @POST("cart/add")
     fun addProduct(@Query("productId") productId: Long, @Query("quantity") quantity: Int): Call<ApiResponse<Void>>
@@ -30,6 +30,10 @@ interface ApiService {
 
     @POST("cart/finalize")
     fun finalizeCart(): Call<ApiResponse<Void>>
+
+    // admin routes
+    @DELETE("admin/products/{id}")
+    fun deleteProduct(@Path("id") productId: Long): Call<ApiResponse<Void>>
 }
 
 // Data Models
