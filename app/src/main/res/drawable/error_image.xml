@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Red background to indicate an error -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF0000" /> <!-- Red color -->
+            <corners android:radius="8dp" /> <!-- Rounded corners -->
+        </shape>
+    </item>
+
+    <!-- Centered error icon -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@android:drawable/ic_dialog_alert" />
+    </item>
+
+</layer-list>
