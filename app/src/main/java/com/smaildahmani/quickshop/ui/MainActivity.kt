@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.smaildahmani.quickshop.MapsActivity
 import com.smaildahmani.quickshop.R
 import com.smaildahmani.quickshop.api.ApiClient
 import com.smaildahmani.quickshop.api.ApiResponse

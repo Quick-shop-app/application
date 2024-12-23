@@ -42,36 +42,55 @@ android {
 }
 
 dependencies {
+    // AndroidX Core and Lifecycle
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.appcompat)
+
+    // Jetpack Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+
+    // Material Design
     implementation(libs.androidx.material3)
+    implementation(libs.material)
+
+    // RecyclerView and SwipeRefreshLayout
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.swiperefreshlayout)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
+
+    // ConstraintLayout
     implementation(libs.androidx.constraintlayout)
+
+    // Google Play Services
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
+
+    // Retrofit for API calls
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // OkHttp for network operations
+    implementation(libs.okhttp3.okhttp)
+
+    // Glide for image handling
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+
+    // Android Security
+    implementation(libs.androidx.security.crypto)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Debugging Tools
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp3.okhttp)
-    implementation(libs.glide)
-    annotationProcessor(libs.compiler)
-    implementation(libs.androidx.security.crypto)
-    implementation(libs.material)
-
 }

@@ -10,10 +10,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-
     private const val API_BASE_URL = "$BASE_URL/api/"
 
-    // Function to create Retrofit instance with Basic Auth
     fun getInstance(context: Context): Retrofit {
         val sharedPref = context.getSharedPreferences("QuickShop", Context.MODE_PRIVATE)
         val email = sharedPref.getString("EMAIL", null)
@@ -31,7 +29,7 @@ object RetrofitClient {
                 }
                 .build()
         } else {
-            OkHttpClient.Builder().build() // No auth if credentials are not available
+            OkHttpClient.Builder().build()
         }
 
         return Retrofit.Builder()
@@ -43,7 +41,6 @@ object RetrofitClient {
 }
 
 object ApiClient {
-    // Dynamically create the ApiService with Basic Auth if needed
     fun getApiService(context: Context): ApiService {
         return RetrofitClient.getInstance(context).create(ApiService::class.java)
     }

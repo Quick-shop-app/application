@@ -30,10 +30,10 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAD6tkXRL3tq5fh44glin4nfV6scXw79mI" />
+            android:value="GOOGLE_MAPS_KEY" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".ui.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps2"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />

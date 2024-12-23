@@ -1,4 +1,4 @@
-package com.smaildahmani.quickshop
+package com.smaildahmani.quickshop.ui
 
 import android.Manifest
 import android.content.Context
@@ -21,6 +21,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.smaildahmani.quickshop.R
 import com.smaildahmani.quickshop.databinding.ActivityMapsBinding
 import com.smaildahmani.quickshop.model.Store
 
