@@ -42,8 +42,8 @@ class ProductManagementActivity : AppCompatActivity() {
         rvProductList.layoutManager = LinearLayoutManager(this)
 
         fabCreateProduct.setOnClickListener {
-//            val intent = Intent(this, AddProductActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, AddProductActivity::class.java)
+            startActivity(intent)
         }
 
         val apiService = ApiClient.getApiService(this)
@@ -115,7 +115,7 @@ class ProductManagementActivity : AppCompatActivity() {
     }
 
     private fun deleteProduct(product: Product, apiService: ApiService) {
-        val call = apiService.removeProduct(product.id)
+        val call = apiService.deleteProduct(product.id)
 
         call.enqueue(object : Callback<ApiResponse<Void>> {
             override fun onResponse(call: Call<ApiResponse<Void>>, response: Response<ApiResponse<Void>>) {

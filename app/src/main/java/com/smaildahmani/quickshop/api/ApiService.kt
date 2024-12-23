@@ -3,6 +3,8 @@ package com.smaildahmani.quickshop.api
 import com.smaildahmani.quickshop.model.CartItem
 import com.smaildahmani.quickshop.model.Product
 import com.smaildahmani.quickshop.model.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -32,6 +34,16 @@ interface ApiService {
     fun finalizeCart(): Call<ApiResponse<Void>>
 
     // admin routes
+    @Multipart
+    @POST("admin/products")
+    fun createProduct(
+        @Part("name") name: RequestBody,
+        @Part("brand") brand: RequestBody,
+        @Part("category") category: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part imageFile: MultipartBody.Part
+    ): Call<ApiResponse<Void>>
     @DELETE("admin/products/{id}")
     fun deleteProduct(@Path("id") productId: Long): Call<ApiResponse<Void>>
 }

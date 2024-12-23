@@ -18,6 +18,10 @@
         android:theme="@style/Theme.QuickShop"
         tools:targetApi="31">
         <activity
+            android:name=".ui.AddProductActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            android:exported="false" />
+        <activity
             android:name=".ui.ProductManagementActivity"
             android:exported="false" />
 
