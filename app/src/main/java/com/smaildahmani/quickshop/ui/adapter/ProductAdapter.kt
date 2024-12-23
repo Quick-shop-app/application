@@ -27,7 +27,6 @@ class ProductAdapter(
 
         // Load image using Glide
         val imageUrl = "$BASE_URL/images/${product.image}"
-            println(imageUrl)
 
         Glide.with(holder.itemView.context)
             .load(imageUrl)
