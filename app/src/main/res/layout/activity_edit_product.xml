@@ -1,0 +1,111 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvEditProductTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_product"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Product Name -->
+            <EditText
+                android:id="@+id/etProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/product_name" />
+
+            <!-- Product Brand -->
+            <EditText
+                android:id="@+id/etProductBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/brand" />
+
+            <!-- Product Category -->
+            <EditText
+                android:id="@+id/etProductCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/category" />
+
+            <!-- Product Price -->
+            <EditText
+                android:id="@+id/etProductPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/price"
+                android:inputType="numberDecimal" />
+
+            <!-- Product Description -->
+            <EditText
+                android:id="@+id/etProductDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/description"
+                android:minHeight="100dp"
+                android:inputType="text" />
+
+            <!-- Current Image Section -->
+            <TextView
+                android:id="@+id/tvCurrentImageLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/current_image"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivCurrentProductImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/current_product_image" />
+
+            <!-- Select New Image Button -->
+            <Button
+                android:id="@+id/btnSelectNewImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/teal_700"
+                android:text="@string/select_new_image" />
+
+            <!-- New Image Preview -->
+            <ImageView
+                android:id="@+id/ivNewProductImagePreview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:contentDescription="@string/new_product_image" />
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/btnUpdateProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_product"
+                android:backgroundTint="@color/teal_700"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
